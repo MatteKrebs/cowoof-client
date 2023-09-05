@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import './App.css';
 //import PetList from './components/PetList';
 import PetsPage from './pages/PetsPage';
+import OwnersPage from './pages/OwnersPage'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/pets" element={<PetsPage />} />
+        <Route path='/owners' element={<OwnersPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Button />

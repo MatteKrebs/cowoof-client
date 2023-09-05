@@ -1,7 +1,11 @@
 const AboutPage = () => {
     return (
         <div>
-            <h1>About Us</h1>
+            <h1>CoWoof</h1>
+            <div>
+                <h2>If you're like us...</h2>
+                <p>...you LOVE dogs! </p>
+            </div>
         </div>
     )
 }

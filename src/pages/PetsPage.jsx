@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PetList from "../components/PetList";
+import AddPet from "../components/AddPet";
 
 
 
@@ -20,7 +21,7 @@ const PetsPage = () => {
     return (
         <div>
             <h3>Pets List</h3>
-        
+            <AddPet />
             <PetList /> 
         </div>
        
