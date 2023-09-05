@@ -1,12 +1,14 @@
 import React from "react";
-import OwnerCard from "./OwnerCard";
-import PetCard from "./PetCard";
-import dogImg from "../assets/images/dogphoto1.png";
+//import OwnerCard from "./OwnerCard";
+//import PetCard from "./PetCard";
+//import dogImg from "../assets/images/dogphoto1.png";
+
+
 
 const GroupCard = ({ groupName, groupLocation, groupImage, groupAdmin, groupMembers}) => {
     return(
         <div>
-            <img className="GroupCardImage" src={groupImage} alt="cowoofers image" />
+            <img className="GroupCardImage" src={groupImage} alt="cowoofers" />
             <h2>{groupName}</h2>
             <h3>Location: {groupLocation}</h3>
             <h5>{groupAdmin}</h5>
@@ -19,3 +21,5 @@ const GroupCard = ({ groupName, groupLocation, groupImage, groupAdmin, groupMemb
         </div>
     )
 }
+
+export default GroupCard;

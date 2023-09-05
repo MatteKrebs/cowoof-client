@@ -8,15 +8,18 @@ const PetList = () => {
     { name: "Luna", age: 2, about: "Energetic and great with kids." },
   ];
 
+
+
   return (
     <div className="flex flex-wrap justify-center">
+
       {pets.map((pet, index) => (
         <PetCard
           key={index}
           petName={pet.name}
           petAge={pet.age}
           petAbout={pet.about}
-          image={dogImg}
+          petImage={dogImg}
         />
       ))}
     </div>
