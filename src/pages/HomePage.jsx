@@ -12,7 +12,8 @@ const Homepage = () => {
     <div className="flex h-screen">
       {/* Left Side (Buttons) */}
       <div className="w-1/4 flex flex-col justify-center items-center bg-green-300 text-white p-8">
-        <h1 className="text-3xl font-semibold mb-8">Welcome to Our Website</h1>
+        <h1 className="text-3xl font-semibold mb-8">CoWoof</h1>
+        <h4 className="text-xl font-semibold mb-8">A Co-Parenting community for Dog Parents that care.</h4>
         <Link to="/about" className="btn">About Us</Link>
         <Link to="/login" className="btn mt-4">Login</Link>
         <Link to="/signup" className="btn mt-4">Sign Up</Link>
