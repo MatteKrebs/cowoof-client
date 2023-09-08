@@ -8,7 +8,9 @@ const SignupCombined = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatchError, setPasswordMatchError] = useState('');
-  const [location, setLocation] = useState({});
+  const [locationCountry, setLocationCountry] = useState('');
+  const [locationCity, setLocationCity] = useState('');
+  const [locationPostalCode, setLocationPostalCode] = useState('');
   const [availabilityNeeded, setAvailabilityNeeded] = useState([]);
   const [availabilityToHelp, setAvailabilityToHelp] = useState([]);
 
@@ -28,8 +30,16 @@ const SignupCombined = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
+  const handleLocationCountryChange = (e) => {
+    setLocationCountry(e.target.value);
+  };
+
+  const handleLocationCityChange = (e) => {
+    setLocationCity(e.target.value);
+  };
+
+  const handleLocationPostalCodeChange = (e) => {
+    setLocationPostalCode(e.target.value);
   };
 
   const handleAvailabilityNeededChange = (e) => {
@@ -53,7 +63,11 @@ axiosInstance.post('/auth/signup', {
     userName,
     userEmail,
     password,
-    location,
+    location: {
+        locationCountry,
+        locationCity,
+        locationPostalCode
+    },
     availabilityNeeded,
     availabilityToHelp
   })
@@ -71,7 +85,9 @@ axiosInstance.post('/auth/signup', {
     setPassword('');
     setConfirmPassword('');
     setPasswordMatchError('');
-    setLocation('');
+    setLocationCountry('');
+    setLocationCity('');
+    setLocationPostalCode('');
     setAvailabilityNeeded('');
     setAvailabilityToHelp('');
   };
@@ -164,8 +180,8 @@ axiosInstance.post('/auth/signup', {
             id="country"
             name="location.country"
             placeholder="Spain"
-            value={location.country}
-            onChange={handleLocationChange}
+            value={locationCountry}
+            onChange={handleLocationCountryChange}
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>
@@ -179,8 +195,8 @@ axiosInstance.post('/auth/signup', {
             id="city"
             name="location.city"
             placeholder="Barcelona"
-            value={location.city}
-            onChange={handleLocationChange}
+            value={locationCity}
+            onChange={handleLocationCityChange}
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>
@@ -194,8 +210,8 @@ axiosInstance.post('/auth/signup', {
             id="postalCode"
             name="location.postalCode"
             placeholder="08001"
-            value={location.postalCode}
-            onChange={handleLocationChange}
+            value={locationPostalCode}
+            onChange={handleLocationPostalCodeChange}
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>
