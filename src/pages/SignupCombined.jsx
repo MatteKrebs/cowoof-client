@@ -44,8 +44,15 @@ const SignupCombined = () => {
     };
 
     const handleAvailabilityNeededChange = (e) => {
-        setAvailabilityNeeded(e.target.value);
+
+      if(e.target.checked){
+        setAvailabilityNeeded(prevForm => (
+       [...prevForm,
+      e.target.value] 
+     ))
+       } 
     };
+
 
     const handleAvailabilityToHelpChange = (e) => {
         setAvailabilityToHelp(e.target.value);
@@ -63,6 +70,8 @@ const SignupCombined = () => {
         //show the second form here because the password validation finishes and we aren't ready to send payload.
         setToggleForm(true)
     }
+
+    console.log('availabilityNeeded', availabilityNeeded)
 
 
     const handleCompletedForm = (e) => {
@@ -244,7 +253,7 @@ const SignupCombined = () => {
                                             type="checkbox"
                                             name="availabilityNeeded"
                                             value={option}
-                                            checked={availabilityNeeded.includes(option)}
+                                            // checked={availabilityNeeded.includes(option)}
                                             onChange={handleAvailabilityNeededChange}
                                             className="mr-2"
                                         />
@@ -262,7 +271,7 @@ const SignupCombined = () => {
                                             type="checkbox"
                                             name="availabilityToHelp"
                                             value={option}
-                                            checked={availabilityToHelp.includes(option)}
+                                            // checked={availabilityToHelp.includes(option)}
                                             onChange={handleAvailabilityToHelpChange}
                                             className="mr-2"
                                         />
