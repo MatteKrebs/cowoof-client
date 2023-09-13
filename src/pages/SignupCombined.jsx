@@ -50,9 +50,9 @@ const SignupCombined = () => {
        [...prevForm,
       e.target.value] 
      ))
-       } 
-    };
-
+       } else {
+        setAvailabilityNeeded(availabilityNeeded.filter(time => time !== e.target.value));
+      }};
 
     const handleAvailabilityToHelpChange = (e) => {
         setAvailabilityToHelp(e.target.value);
@@ -271,7 +271,7 @@ const SignupCombined = () => {
                                             type="checkbox"
                                             name="availabilityToHelp"
                                             value={option}
-                                            // checked={availabilityToHelp.includes(option)}
+                                            checked={availabilityToHelp.includes(option)}
                                             onChange={handleAvailabilityToHelpChange}
                                             className="mr-2"
                                         />

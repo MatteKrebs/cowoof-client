@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 //import SignupPage1 from './components/SignupPage1';
 //import SignupPage from './pages/SignupPage';
 import ErrorPage from './pages/ErrorPage';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/signup" element={<SignupCombined />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path='/profile' element={<ProfilePage />}/>
         <Route path="/pets" element={<PetsPage />} />
         <Route path="/newpet" element={<AddPet />} />
         <Route path='/owners' element={<OwnersPage />} />
