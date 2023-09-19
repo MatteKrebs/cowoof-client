@@ -1,6 +1,12 @@
+import OwnerCard from "../components/OwnerCard";
+
 const OwnersPage = () => {
     return (
-        <h1>Owners Page</h1>
+        <div>
+            <h1>Owners Page</h1>
+            <OwnerCard />
+        </div>
+        
     )
 }
 

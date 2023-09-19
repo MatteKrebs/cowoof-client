@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { axiosInstance } from "../utilities/api";
+import { AuthContext } from '../context/auth.context';
 
-const LoginPage = () => {
+
+function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { user, setUser, isLoggedIn, logOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { storeToken, authenticateUser } = useContext(AuthContext);
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -14,53 +21,47 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
 
-   const handleSubmit = (e) => {
-     e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-//     axios.post('/auth/login', {
-//         email,
-//         password,
-//       })
-//         .then((response) => {
-//           // If the login is successful, you will receive an authentication token
-//           const authToken = response.data.authToken;
-    
-//           // You can save the token in local storage or a cookie for future authenticated requests
-//           // For example, to save it in local storage:
-//           localStorage.setItem('authToken', authToken);
-    
-//           // Redirect to a different page or update your app's state to reflect the user's logged-in status
-//           // For example, to redirect to a dashboard page using React Router:
-//           history.push('/dashboard'); // Assuming you have access to the history object
-    
-//           // Clear any previous error messages
-//           setError(null);
-//         })
-//         .catch((error) => {
-//           // If there's an error during login, handle it gracefully
-//           if (error.response) {
-//             // The server returned an error response
-//             setError(error.response.data.message);
-//           } else {
-//             // Something went wrong with the request (e.g., network error)
-//             setError('An error occurred. Please try again later.');
-//           }
-//         })
+    // Basic input validation
+    if (!email || !password) {
+      setError('Please fill out all fields.');
+      return;
+    }
 
-//     // Add your login logic here (e.g., making an API request to authenticate the user)
-//     // Example: AuthService.login(email, password);
+    setError('');
 
-//     // Reset the form after handling the login
-    
-//     setEmail('');
-//     setPassword('');
-//   };
+    // Send login request to your API
+    // Assuming successful login redirects to '/profile'
+    // Replace with your actual login logic
+    axiosInstance.fetch('/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Assuming successful login redirects to '/profile'
+          window.location.href = '/profile'; // Programmatically navigate to the profile page
+        } else {
+          // Handle invalid login credentials
+          setError('Invalid email or password. Please try again.');
+        }
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+        setError('An error occurred while logging in. Please try again later.');
+      });
+  };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <div className="login-form-group">
+        <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -68,8 +69,7 @@ const LoginPage = () => {
             name="email"
             value={email}
             onChange={handleEmailChange}
-            required
-          />
+            required />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
@@ -79,18 +79,15 @@ const LoginPage = () => {
             name="password"
             value={password}
             onChange={handlePasswordChange}
-            required
-          />
+            required />
         </div>
-        <button type="submit">Login</button>
+        {error && <p className="error-message">{error}</p>}
+        <div className="form-group">
+          <button type="submit">Login</button>
+        </div>
       </form>
-      <p>
-        Don't have an account already?{' '}
-        <Link to="/signup">Create an account</Link>
-      </p>
     </div>
   );
-};
 }
 
 export default LoginPage;

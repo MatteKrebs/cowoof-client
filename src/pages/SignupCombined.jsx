@@ -1,8 +1,11 @@
 import { axiosInstance } from '../utilities/api';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import authMethods from '../services/auth.services';
 
 
 const SignupCombined = () => {
+
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +16,18 @@ const SignupCombined = () => {
     const [locationPostalCode, setLocationPostalCode] = useState('');
     const [availabilityNeeded, setAvailabilityNeeded] = useState([]);
     const [availabilityToHelp, setAvailabilityToHelp] = useState([]);
+    const [user, setUser] = useState({
+            userName: '',
+            userEmail: '', 
+            password: '',
+            locationCountry:'',
+            locationCity:'',
+            locationPostalCode:'',
+            availabilityNeeded: [],
+            availabilityToHelp: []
+    });
     const [toggleForm, setToggleForm] = useState(false);
+    const navigate = useNavigate();
 
     const handleNameChange = (e) => {
         setUserName(e.target.value);
@@ -71,32 +85,15 @@ const SignupCombined = () => {
         setToggleForm(true)
     }
 
-    console.log('availabilityNeeded', availabilityNeeded)
+    //console.log('availabilityNeeded', availabilityNeeded)
 
 
     const handleCompletedForm = (e) => {
       e.preventDefault();
 
-        axiosInstance.post('/auth/signup', {
-            userName,
-            userEmail,
-            password,
-            location: {
-                locationCountry,
-                locationCity,
-                locationPostalCode
-            },
-            availabilityNeeded,
-            availabilityToHelp
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                //change error 
-                console.log(error);
-                alert("Sorry, you have not been registered, try again!")
-            });
+      authMethods.signUp(user)
+        .then(() => navigate('/'))
+        .catch(err => console.error(err))
 
         setUserName('');
         setUserEmail('');
@@ -108,6 +105,7 @@ const SignupCombined = () => {
         setLocationPostalCode('');
         setAvailabilityNeeded('');
         setAvailabilityToHelp('');
+        setUser('');
     };
 
     return (

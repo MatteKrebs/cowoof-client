@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CoverPhoto1 from '../assets/images/coverdogphoto1.png';
 
 const Homepage = () => {

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from '../context/auth.context';
 
 const UserProfile = ({ user }) => {
   const {
@@ -8,7 +9,7 @@ const UserProfile = ({ user }) => {
     availabilityNeeded,
     profilePicture,
     pets,
-  } = user;
+  } = useContext(AuthContext);
 
   return (
     <div className="profile-container">

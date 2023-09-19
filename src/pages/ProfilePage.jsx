@@ -1,5 +1,7 @@
 import React from 'react';
 import UserProfile from '../components/UserProfile';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   // Define a user object with the required properties
