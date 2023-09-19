@@ -1,71 +1,111 @@
 import React, { useState, useEffect, createContext } from "react";
-import { axiosInstance } from "../utilities/api.js";
 import authMethods from "../services/auth.services.js";
- 
+
 const AuthContext = createContext();
 
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
-  
-  const storeToken = (token) => {       //  <==  ADD
-    localStorage.setItem('authToken', token);
-  }
+  const [userName, setUserName] = useState(""); // Add user-related properties here
+  const [locationCountry, setLocationCountry] = useState("");
+  const [locationCity, setLocationCity] = useState("");
+  const [locationPostalCode, setLocationPostalCode] = useState(0);
+  const [availabilityToHelp, setAvailabilityToHelp] = useState("");
+  const [availabilityNeeded, setAvailabilityNeeded] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const [pets, setPets] = useState([]);
 
-  const authenticateUser = () => {           //  <==  ADD  
-    // Get the stored token from the localStorage
-    const storedToken = localStorage.getItem('authToken');
-    
-    // If the token exists in the localStorage
+  const storeToken = (token) => {
+    localStorage.setItem("authToken", token);
+  };
+
+  const authenticateUser = () => {
+    const storedToken = localStorage.getItem("authToken");
+
     if (storedToken) {
-      // We must send the JWT token in the request's "Authorization" Headers
-      authMethods.verifyToken(storedToken)
-      .then((userPayload) => {
-      
-       // Update state variables        
-        setIsLoggedIn(true);
-        setIsLoading(false);
-        setUser(userPayload);        
-      })
-      .catch((error) => {
-        // If the server sends an error response (invalid token) 
-        // Update state variables         
-        setIsLoggedIn(false);
-        setIsLoading(false);
-        setUser(null);        
-      });      
+      authMethods
+        .verifyToken(storedToken)
+        .then((userPayload) => {
+          setIsLoggedIn(true);
+          setIsLoading(false);
+          setUser(userPayload);
+          // Set user-related properties here
+          setUserName(userPayload.userName);
+          setLocationCountry(userPayload.locationCountry);
+          setLocationCity(userPayload.locationCity);
+          setLocationPostalCode(userPayload.locationPostalCode);
+          setAvailabilityToHelp(userPayload.availabilityToHelp);
+          setAvailabilityNeeded(userPayload.availabilityNeeded);
+          setProfilePicture(userPayload.profilePicture);
+          setPets(userPayload.pets);
+        })
+        .catch((error) => {
+          setIsLoggedIn(false);
+          setIsLoading(false);
+          setUser(null);
+          // Reset user-related properties here
+          setUserName("");
+          setLocationCountry("");
+          setLocationCity("");
+          setLocationPostalCode(0);
+          setAvailabilityToHelp("");
+          setAvailabilityNeeded("");
+          setProfilePicture("");
+          setPets([]);
+        });
     } else {
-      // If the token is not available (or is removed)
-        setIsLoggedIn(false);
-        setIsLoading(false);
-        setUser(null);      
-    }   
-  }
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      setUser(null);
+      // Reset user-related properties here
+      setUserName("");
+      setLocationCountry("");
+      setLocationCity("");
+      setLocationPostalCode(0);
+      setAvailabilityToHelp("");
+      setAvailabilityNeeded("");
+      setProfilePicture("");
+      setPets([]);
+    }
+  };
 
-  const removeToken = () => {                    // <== ADD
-    // Upon logout, remove the token from the localStorage
+  const removeToken = () => {
     localStorage.removeItem("authToken");
-  }
- 
- 
-  const logOutUser = () => {                   // <== ADD    
-    // To log out the user, remove the token
+  };
+
+  const logOutUser = () => {
     removeToken();
-    // and update the state variables    
     authenticateUser();
-  }  
- 
-  
-  useEffect(() => {                                    
-    authenticateUser();                   //  <==  ADD
-   }, []);
+  };
+
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, setUser, storeToken, authenticateUser, logOutUser }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        setUser,
+        storeToken,
+        authenticateUser,
+        logOutUser,
+        userName,
+        locationCountry,
+        locationCity,
+        locationPostalCode,
+        availabilityToHelp,
+        availabilityNeeded,
+        profilePicture,
+        pets,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
-  )
+  );
 }
- 
+
 export { AuthProviderWrapper, AuthContext };

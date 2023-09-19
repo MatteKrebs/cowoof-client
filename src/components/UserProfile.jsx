@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from '../context/auth.context';
 
-const UserProfile = ({ user }) => {
+const UserProfile = () => {
   const {
-    name,
-    location,
+    userName,
+    locationCountry,
+    locationCity,
+    locationPostalCode,
     availabilityToHelp,
     availabilityNeeded,
     profilePicture,
@@ -18,8 +20,8 @@ const UserProfile = ({ user }) => {
       </div>
       <div className="user-info">
         <div className="top-right-info">
-          <h2>{name}</h2>
-          <p>Location: {location}</p>
+          <h2>{userName}</h2>
+          <p>Location: {locationCountry}, {locationCity}, {locationPostalCode}</p>
           <p>Availability to Help: {availabilityToHelp}</p>
           <p>Availability Needed: {availabilityNeeded}</p>
         </div>

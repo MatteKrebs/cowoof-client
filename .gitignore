@@ -20,3 +20,27 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+    // Send login request to your API
+    // Assuming successful login redirects to '/profile'
+    // Replace with your actual login logic
+  //   axiosInstance.post('/auth/login', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ email, password }),
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         window.location.href = '/profile'; // Programmatically navigate to the profile page
+  //       } else {
+  //         // Handle invalid login credentials
+  //         setError('Invalid email or password. Please try again.');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('An error occurred:', error);
+  //       setError('An error occurred while logging in. Please try again later.');
+  //     });

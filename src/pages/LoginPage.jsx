@@ -1,18 +1,15 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { axiosInstance } from "../utilities/api";
-import { AuthContext } from '../context/auth.context';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import authMethods from '../services/auth.services';
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
-
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setUserEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -23,66 +20,72 @@ function LoginPage() {
     e.preventDefault();
 
     // Basic input validation
-    if (!email || !password) {
+    if (!userEmail || !password) {
       setError('Please fill out all fields.');
       return;
     }
 
     setError('');
 
-    // Send login request to your API
-    // Assuming successful login redirects to '/profile'
-    // Replace with your actual login logic
-    axiosInstance.post('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          window.location.href = '/profile'; // Programmatically navigate to the profile page
-        } else {
-          // Handle invalid login credentials
-          setError('Invalid email or password. Please try again.');
-        }
+    // Call the logIn function from authMethods
+    authMethods
+      .logIn({ username: userEmail, password }) // Pass the email and password
+      .then((data) => {
+        // Handle successful login
+        console.log('Logged in:', data);
+        // Use navigate to redirect to the ProfilePage for the user
+        navigate('/profile'); // Update this route as needed
       })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-        setError('An error occurred while logging in. Please try again later.');
+      .catch((err) => {
+        setError('Invalid credentials. Please try again.');
+        console.error(err);
       });
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <div className="form-group">
-          <button type="submit">Login</button>
-        </div>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-1/2 bg-white shadow-md rounded-lg p-8">
+        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block mb-1">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={userEmail}
+              onChange={handleEmailChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-1">
+              Password:
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          <div className="mb-4">
+            <button
+              type="submit"
+              className="w-1/2 bg-green-300 text-white py-2 rounded-lg hover:bg-green-400"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
