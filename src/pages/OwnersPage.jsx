@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import OwnerCard from '../components/OwnerCard'; // Import the OwnerCard component
-import { axiosInstance } from '../utilities/api'; // Import Axios for making API requests
+import OwnerCard from '../components/OwnerCard';
+import { axiosInstance } from '../utilities/api';
 
 const OwnersPage = () => {
-  const [owners, setOwners] = useState([]); // State to store the list of owners
+  const [owners, setOwners] = useState([]);
 
   useEffect(() => {
-    // Fetch the list of owners from your API when the component mounts
-    axiosInstance.get('/owners') // Replace with your API endpoint
+    axiosInstance.get('/owners')
       .then((response) => {
-        setOwners(response.data); // Update the state with the fetched owners
+        setOwners(response.data);
       })
       .catch((error) => {
         console.error('Error fetching owners:', error);

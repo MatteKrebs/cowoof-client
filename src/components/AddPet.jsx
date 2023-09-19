@@ -12,13 +12,11 @@ function AddPet(props) {
       petImage,
     };
 
-    axiosInstance.post("/pets", newPet) // Assuming your backend is running on the same host
+    axiosInstance.post("/pets", newPet)
       .then((response) => {
-        // Handle the response from the backend, e.g., show a success message
         console.log("Pet added successfully:", response.data);
       })
       .catch((error) => {
-        // Handle any errors that occurred during the POST request
         console.error("Error adding pet:", error);
       });
 
@@ -79,7 +77,6 @@ function AddPet(props) {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"

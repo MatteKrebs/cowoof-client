@@ -30,7 +30,6 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(userPayload);
-          // Set user-related properties here
           setUserName(userPayload.userName);
           setLocationCountry(userPayload.locationCountry);
           setLocationCity(userPayload.locationCity);
@@ -44,7 +43,6 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
-          // Reset user-related properties here
           setUserName("");
           setLocationCountry("");
           setLocationCity("");
@@ -58,7 +56,6 @@ function AuthProviderWrapper(props) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
-      // Reset user-related properties here
       setUserName("");
       setLocationCountry("");
       setLocationCity("");

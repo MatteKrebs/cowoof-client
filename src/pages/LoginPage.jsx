@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import authMethods from '../services/auth.services';
 
 function LoginPage() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setUserEmail(e.target.value);
@@ -19,7 +19,6 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic input validation
     if (!userEmail || !password) {
       setError('Please fill out all fields.');
       return;
@@ -27,14 +26,11 @@ function LoginPage() {
 
     setError('');
 
-    // Call the logIn function from authMethods
     authMethods
-      .logIn({ username: userEmail, password }) // Pass the email and password
+      .logIn({ username: userEmail, password })
       .then((data) => {
-        // Handle successful login
         console.log('Logged in:', data);
-        // Use navigate to redirect to the ProfilePage for the user
-        navigate('/profile'); // Update this route as needed
+        navigate('/profile');
       })
       .catch((err) => {
         setError('Invalid credentials. Please try again.');
