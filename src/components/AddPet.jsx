@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { axiosInstance } from "../utilities/api";
 
 function AddPet(props) {
   const handleSubmit = (e) => {
@@ -11,7 +12,16 @@ function AddPet(props) {
       petImage,
     };
 
-    // Perform any action with the newPet data (e.g., send it to a server)
+    axiosInstance.post("/pets", newPet) // Assuming your backend is running on the same host
+      .then((response) => {
+        // Handle the response from the backend, e.g., show a success message
+        console.log("Pet added successfully:", response.data);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the POST request
+        console.error("Error adding pet:", error);
+      });
+
     console.log("New Pet Data:", newPet);
   };
 

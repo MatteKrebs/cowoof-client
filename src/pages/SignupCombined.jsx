@@ -1,4 +1,3 @@
-import { axiosInstance } from '../utilities/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authMethods from '../services/auth.services';
@@ -13,7 +12,7 @@ const SignupCombined = () => {
     const [passwordMatchError, setPasswordMatchError] = useState('');
     const [locationCountry, setLocationCountry] = useState('');
     const [locationCity, setLocationCity] = useState('');
-    const [locationPostalCode, setLocationPostalCode] = useState('');
+    const [locationPostalCode, setLocationPostalCode] = useState(0);
     const [availabilityNeeded, setAvailabilityNeeded] = useState([]);
     const [availabilityToHelp, setAvailabilityToHelp] = useState([]);
     const [user, setUser] = useState({
@@ -22,7 +21,7 @@ const SignupCombined = () => {
             password: '',
             locationCountry:'',
             locationCity:'',
-            locationPostalCode:'',
+            locationPostalCode: 0,
             availabilityNeeded: [],
             availabilityToHelp: []
     });
@@ -85,14 +84,13 @@ const SignupCombined = () => {
         setToggleForm(true)
     }
 
-    //console.log('availabilityNeeded', availabilityNeeded)
-
 
     const handleCompletedForm = (e) => {
       e.preventDefault();
 
       authMethods.signUp(user)
-        .then(() => navigate('/'))
+        .then(() => {console.log('user', user)
+        return navigate('/')})
         .catch(err => console.error(err))
 
         setUserName('');
@@ -102,7 +100,7 @@ const SignupCombined = () => {
         setPasswordMatchError('');
         setLocationCountry('');
         setLocationCity('');
-        setLocationPostalCode('');
+        setLocationPostalCode(0);
         setAvailabilityNeeded('');
         setAvailabilityToHelp('');
         setUser('');
@@ -232,7 +230,7 @@ const SignupCombined = () => {
                                 Postal Code:
                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 id="postalCode"
                                 name="location.postalCode"
                                 placeholder="08001"
@@ -278,7 +276,8 @@ const SignupCombined = () => {
                                 )
                             )}
                         </div>
-                        <input
+                        <button
+                            onChange={handleCompletedForm}
                             value="Submit"
                             type="submit"
                             className="w-full bg-green-300 text-black py-2 rounded-md hover:bg-opacity-80"

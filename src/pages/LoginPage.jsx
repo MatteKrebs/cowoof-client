@@ -8,9 +8,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { user, setUser, isLoggedIn, logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { storeToken, authenticateUser } = useContext(AuthContext);
 
 
   const handleEmailChange = (e) => {
@@ -35,7 +33,7 @@ function LoginPage() {
     // Send login request to your API
     // Assuming successful login redirects to '/profile'
     // Replace with your actual login logic
-    axiosInstance.fetch('/user/login', {
+    axiosInstance.post('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +42,6 @@ function LoginPage() {
     })
       .then((response) => {
         if (response.ok) {
-          // Assuming successful login redirects to '/profile'
           window.location.href = '/profile'; // Programmatically navigate to the profile page
         } else {
           // Handle invalid login credentials

@@ -6,11 +6,25 @@ const api = axiosInstance.create({
   // withCredentials: true // => you might need this option if using cookies and sessions
 });
 
-const signUp = ({userName, userEmail, password,locationCountry, locationCity, locationPostalCode, availabilityNeeded, availabilityToHelp}) => {
-    return api.post("/signup", {userName, userEmail, password, locationCountry, locationCity, locationPostalCode, availabilityNeeded, availabilityToHelp})
-                   .then(response => response.data)
-                   .catch(err => console.error(err))
-}
+const signUp = ({ userName, userEmail, password, locationCountry, locationCity, locationPostalCode, availabilityNeeded, availabilityToHelp }) => {
+    return api.post("/signup", {
+      userName,
+      userEmail,
+      password,
+      locationCountry,
+      locationCity,
+      locationPostalCode,
+      availabilityNeeded,
+      availabilityToHelp
+    })
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
 const logIn = ({username, password}) => {
     return api.post("/auth/login", {username, password})
