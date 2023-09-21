@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PetList from "../components/PetList";
+import AddPet from "../components/AddPet";
+import { axiosInstance } from "../utilities/api";
 
 
 
@@ -9,7 +11,7 @@ const PetsPage = () => {
     const [petsList, setPetsList] = useState([]); 
 
     useEffect(() => {
-        axios.get("mongodb://localhost:27017")
+        axiosInstance.get("mongodb://localhost:27017")
         .then((response) => {
           console.log('response.data', response.data);
           setPetsList(response.data)
@@ -20,7 +22,7 @@ const PetsPage = () => {
     return (
         <div>
             <h3>Pets List</h3>
-        
+            <AddPet />
             <PetList /> 
         </div>
        
