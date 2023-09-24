@@ -5,13 +5,13 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import ErrorPage from './pages/ErrorPage';
 import NavigationBar from './components/NavigationBar';
-import Button from './components/Button';
 import Footer from './components/Footer';
-import './App.css';
 import PetsPage from './pages/PetsPage';
-import OwnersPage from './pages/OwnersPage'
+import OwnersPage from './pages/OwnersPage';
+import GroupsPage from './pages/GroupsPage';
 import AddPet from './components/AddPet';
 import SignupCombined from './pages/SignupCombined';
+import './App.css';
 
 function App() {
 
@@ -27,9 +27,9 @@ function App() {
         <Route path="/pets" element={<PetsPage />} />
         <Route path="/newpet" element={<AddPet />} />
         <Route path='/owners' element={<OwnersPage />} />
+        <Route path='/groups' element={<GroupsPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      <Button />
       <Footer />
     </div>
   );

@@ -5,16 +5,16 @@ import React from "react";
 
 
 
-const GroupCard = ({ groupName, groupLocation, groupImage, groupAdmin, groupMembers}) => {
+const GroupCard = ({ groupName, groupCountry, groupCity, groupImage, groupAdmin, members}) => {
     return(
         <div>
             <img className="GroupCardImage" src={groupImage} alt="cowoofers" />
             <h2>{groupName}</h2>
-            <h3>Location: {groupLocation}</h3>
+            <h3>Location: {groupCity}, {groupCountry}</h3>
             <h5>{groupAdmin}</h5>
             <h3>Members:</h3>
             <ul>
-                {groupMembers.map((member, index) => (
+                {members.map((member, index) => (
                 <li key={index}>{member}</li>
                 ))}
             </ul>
