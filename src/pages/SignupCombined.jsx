@@ -91,7 +91,7 @@ const SignupCombined = () => {
       .signUp(user)
       .then(() => {
         console.log('user', user);
-        navigate('/');
+        navigate(`/${user}/:id`);
       })
       .catch((err) => console.error(err));
 

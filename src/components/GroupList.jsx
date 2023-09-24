@@ -1,5 +1,5 @@
 import React from "react";
-import GroupCard from "./GroupCard"; // Adjust the path to your GroupCard component
+import GroupCard from "./"; // Adjust the path to your GroupCard component
 
 const GroupList = ({ groups }) => {
   return (
