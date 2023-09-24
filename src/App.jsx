@@ -12,11 +12,15 @@ import GroupsPage from './pages/GroupsPage';
 import AddPet from './components/AddPet';
 import SignupCombined from './pages/SignupCombined';
 import './App.css';
+import { AuthProvider } from './context/auth.context';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-
+  const { user, setUser } = useAuth();
+  
   return (
     <div className="App">
+      <AuthProvider value={{ user, setUser }}>
       <NavigationBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -31,6 +35,7 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
+      </AuthProvider>
     </div>
   );
 }

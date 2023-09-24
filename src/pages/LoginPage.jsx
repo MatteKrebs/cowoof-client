@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authMethods from '../services/auth.services';
+import { useAuth } from '../hooks/useAuth';
 
 function LoginPage() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleEmailChange = (e) => {
     setUserEmail(e.target.value);
@@ -30,6 +32,7 @@ function LoginPage() {
       .logIn({ username: userEmail, password })
       .then((data) => {
         console.log('Logged in:', data);
+        login(data.authToken);
         navigate('/profile');
       })
       .catch((err) => {

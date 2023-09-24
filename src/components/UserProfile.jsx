@@ -1,19 +1,8 @@
-import React, { useContext } from "react";
-import { AuthContext } from '../context/auth.context';
+import React from "react";
 
-const UserProfile = () => {
-  const {
-    userName,
-    locationCountry,
-    locationCity,
-    locationPostalCode,
-    availabilityToHelp,
-    availabilityNeeded,
-    userDescription,
-    userImage,
-    pets,
-    groups
-  } = useContext(AuthContext);
+const UserProfile = ({user, pets = [], groups = []}) => {
+  console.log(user);
+  const { userImage, userName, userDescription = "", availabilityToHelp, availabilityNeeded, locationPostalCode, locationCountry, locationCity } = user;
 
   return (
     <div className="flex p-4 bg-gray-100 rounded-lg">

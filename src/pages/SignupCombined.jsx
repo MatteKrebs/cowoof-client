@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authMethods from '../services/auth.services';
+import { useAuth } from '../hooks/useAuth';
 
 const SignupCombined = () => {
   const [userName, setUserName] = useState('');
@@ -15,6 +16,7 @@ const SignupCombined = () => {
   const [availabilityToHelp, setAvailabilityToHelp] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleNameChange = (e) => {
     setUserName(e.target.value);
@@ -62,6 +64,19 @@ const SignupCombined = () => {
     }
   };
 
+  const clearUser = () => {
+    setUserName('');
+    setUserEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setLocationCountry('');
+    setLocationCity('');
+    setLocationPostalCode('');
+    setAvailabilityNeeded([]);
+    setAvailabilityToHelp([]);
+    setToggleForm(false);
+  };
+
   const handleFirstForm = (e) => {
     e.preventDefault();
 
@@ -76,7 +91,7 @@ const SignupCombined = () => {
   const handleCompletedForm = (e) => {
     e.preventDefault();
 
-    const user = {
+    const userData = {
       userName,
       userEmail,
       password,
@@ -88,23 +103,17 @@ const SignupCombined = () => {
     };
 
     authMethods
-      .signUp(user)
-      .then(() => {
-        console.log('user', user);
-        navigate(`/${user}/:id`);
+      .signUp(userData)
+      .then((createdUser) => {
+        const { user } = createdUser;
+        login(user)
+        navigate("/login");
       })
-      .catch((err) => console.error(err));
-
-    setUserName('');
-    setUserEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setPasswordMatchError('');
-    setLocationCountry('');
-    setLocationCity('');
-    setLocationPostalCode('');
-    setAvailabilityNeeded([]);
-    setAvailabilityToHelp([]);
+      .catch((err) => {
+        console.log(err);
+        alert('Error creating user, try again!');
+        clearUser();
+      });
   };
 
   return (
@@ -112,6 +121,8 @@ const SignupCombined = () => {
       <div className="signup-container bg-white rounded-lg p-6 border border-gray-300 shadow-lg w-1/2">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Signup</h2>
         <form onSubmit={toggleForm ? handleCompletedForm : handleFirstForm}>
+        {!toggleForm && (
+          <>
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-600">
               Name:
@@ -176,7 +187,8 @@ const SignupCombined = () => {
               <p className="text-red-600 text-sm mt-2">{passwordMatchError}</p>
             )}
           </div>
-
+          </>
+          )}
           {toggleForm && (
             <div>
               <div className="mb-4">
