@@ -31,8 +31,7 @@ function LoginPage() {
     authMethods
       .logIn({ username: userEmail, password })
       .then((data) => {
-        console.log('Logged in:', data);
-        login(data.authToken);
+        login(data.authToken, data.userId, userEmail, data.userName);
         navigate('/profile');
       })
       .catch((err) => {

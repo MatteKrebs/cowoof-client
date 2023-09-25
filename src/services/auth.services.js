@@ -5,7 +5,7 @@ const getToken = () => {
 }
 
 const signUp = ({ userName, userEmail, password, locationCountry, locationCity, locationPostalCode, availabilityNeeded, availabilityToHelp }) => {
-  return axiosInstance.post("/signup", {
+  return axiosInstance.post("/auth/signup", {
     userName,
     userEmail,
     password,
@@ -30,23 +30,6 @@ const verifyToken = () => {
   return axiosInstance.get("/auth/verify", { headers: { Authorization: `Bearer ${authToken}` } })
     .then(response => response.data)
 }
-
-/* 
-const uploadPhoto = (uploadData) => {
-  return axiosInstance.post("/api/upload", uploadData)
-    .then(response => response.data)
-}
-
-const getCurrentUser = () => {
-  const authToken = getToken();
-  return axiosInstance.get("/api/users", { headers: { Authorization: `Bearer ${authToken}` } })
-    .then(response => response.data)
-}
-
-const editUser = ({ username, campus, course, image }) => {
-  const authToken = getToken();
-  return axiosInstance.put("/api/users", { username, campus, course, image }, { headers: { Authorization: `Bearer ${authToken}` } })
-} */
 
 const authMethods = {
   signUp,

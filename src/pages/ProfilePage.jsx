@@ -28,8 +28,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>User Profile</h1>
+    <div className="flex flex-col justify-center items-center bg-green-300 text-white p-8 h-full">
       {userFromDB && <UserProfile user={userFromDB} />}
       {!userFromDB && <p>Loading...</p>}
     </div>

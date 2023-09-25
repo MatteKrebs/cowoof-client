@@ -1,19 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CoWoofLogo from '../assets/images/CoWoofLogo.png'
-
+import { useAuth } from '../hooks/useAuth';
 
 const NavigationBar = () => {
+    const { isLoggedIn } = useAuth();
+
     return (
-        <nav>
-            <div className="absolute left-0 top-0 h-20 w-20">
+        <nav className='relative h-16 bg-white py-2'>
+            <div className="absolute left-4 top-3 h-24 w-24 hidden md:block">                
                 <Link to={'/'}><img src={CoWoofLogo} alt="cowooflogo"></img></Link>
             </div>
-                
-            <ul className="flex justify-around">
+
+            <ul className="flex text-black justify-evenly items-center h-full">
                 <li><Link to={'/'}>Home</Link></li>
-                <li><Link to={'/about'}>About</Link></li>                
-                <li><Link to={'/login'}>Login</Link></li>               
+                <li><Link to={'/about'}>About</Link></li>
+                { !isLoggedIn() ? <li><Link to={'/login'}>Login</Link></li> :  <li><Link to={'/logout'}>Logout</Link></li>}
             </ul>
         </nav>
     )

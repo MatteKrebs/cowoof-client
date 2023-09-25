@@ -20,15 +20,22 @@ export const useAuth = () => {
         setItem("user", JSON.stringify(user));
     };
 
-    const login = (authToken) => {
+    const login = (authToken, userId, userEmail, userName) => {
+        setItem("user", JSON.stringify({ _id: userId, userEmail, userName }));
         setItem("userToken", JSON.stringify(authToken));
     };
 
     const logout = () => {
         removeItem("user");
         removeItem("userToken");
+        setUserState(null);
     };
 
-    return { user, setUser, login, logout };
+    const isLoggedIn = () => {
+        console.log(user);
+        return !!user;
+    };
+
+    return { user, setUser, login, logout, isLoggedIn };
 };
 
