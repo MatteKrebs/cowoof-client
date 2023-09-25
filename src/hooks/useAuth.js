@@ -21,8 +21,10 @@ export const useAuth = () => {
     };
 
     const login = (authToken, userId, userEmail, userName) => {
+        console.log(userName)
         setItem("user", JSON.stringify({ _id: userId, userEmail, userName }));
         setItem("userToken", JSON.stringify(authToken));
+        setUserState({ _id: userId, userEmail, userName });
     };
 
     const logout = () => {
@@ -32,7 +34,6 @@ export const useAuth = () => {
     };
 
     const isLoggedIn = () => {
-        console.log(user);
         return !!user;
     };
 
