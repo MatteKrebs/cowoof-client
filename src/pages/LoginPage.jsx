@@ -29,7 +29,7 @@ function LoginPage() {
     setError('');
 
     authMethods
-      .logIn({ username: userEmail, password })
+      .logIn({ email: userEmail, password })
       .then((data) => {
         login(data.authToken, data.userId, userEmail, data.userName);
         navigate('/profile');

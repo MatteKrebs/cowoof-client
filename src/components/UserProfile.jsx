@@ -1,7 +1,6 @@
 import React from "react";
 
 const UserProfile = ({ user, pets = [], groups = [] }) => {
-  console.log(user);
   const { userImage = "https://i.pravatar.cc/300", userName, userDescription = "", availabilityToHelp, availabilityNeeded, locationPostalCode, locationCountry, locationCity } = user;
 
   return (
@@ -23,10 +22,10 @@ const UserProfile = ({ user, pets = [], groups = [] }) => {
         <div className="flex flex-col p-12 text-black justify-start items-start">
           <p className="text-center"><b>Address: </b>{locationCountry}, {locationCity}, {locationPostalCode}</p>
           <p className="text-center"><b>Availability to help:</b> {availabilityToHelp.map(function (item, index) {
-            return (<p key={index}>{item}</p>)
+            return (<span key={index}>{item}</span>)
           })}</p>
           <p className="text-center"><b>Availability needed:</b> {availabilityNeeded.map(function (item, index) {
-            return (<p key={index}>{item}</p>)
+            return (<span key={index}>{item}</span>)
           })}</p>
         </div>
       </div>

@@ -20,8 +20,8 @@ const signUp = ({ userName, userEmail, password, locationCountry, locationCity, 
     })
 };
 
-const logIn = ({ username, password }) => {
-  return axiosInstance.post("/auth/login", { username, password })
+const logIn = ({ email, password }) => {
+  return axiosInstance.post("/auth/login", { email, password })
     .then(response => response.data)
 }
 

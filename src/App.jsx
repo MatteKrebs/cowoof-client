@@ -8,6 +8,7 @@ import ErrorPage from './pages/ErrorPage';
 import NavigationBar from './components/NavigationBar';
 import Footer from './components/Footer';
 import OwnersPage from './pages/OwnersPage';
+import OwnerPage from './pages/OwnerPage';
 import GroupsPage from './pages/GroupsPage';
 import AddPet from './components/AddPet';
 import SignupCombined from './pages/SignupCombined';
@@ -16,12 +17,12 @@ import { AuthProvider } from './context/auth.context';
 import { useAuth } from './hooks/useAuth';
 
 function App() {
-  const { user, setUser } = useAuth();
-  
+  const { user, setUser, isLoggedIn } = useAuth();
+
   return (
     <div className="App">
-      <AuthProvider value={{ user, setUser }}>
-      <NavigationBar />
+      <AuthProvider value={{ user, setUser, isLoggedIn }}>
+      <NavigationBar isLoggedIn={isLoggedIn}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -31,6 +32,7 @@ function App() {
         <Route path='/profile' element={<ProfilePage />}/>
         <Route path="/newpet" element={<AddPet />} />
         <Route path='/owners' element={<OwnersPage />} />
+        <Route path='/owner/:id' element={<OwnerPage />} />
         <Route path='/groups' element={<GroupsPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
