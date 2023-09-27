@@ -14,7 +14,7 @@ const OwnersPage = () => {
 
     async function getOwnerData(id) {
       try {
-        const owner = await getOwner(id);
+        const owner = await getOwner(id, true);
         setError(false)
         setOwner(owner)
         return owner;
@@ -35,7 +35,7 @@ const OwnersPage = () => {
     <div>
       <h1 className="text-3xl font-semibold mb-8">{owner && owner.userName}</h1>
 
-      <div className="flex flex-row flex-wrap justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
          { owner && <OwnerCard owner={owner} />}
          { !owner && <p>Loading...</p> }
       </div>
