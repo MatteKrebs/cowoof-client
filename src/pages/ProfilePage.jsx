@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
     async function getOwnerData(id) {
       try {
-        const owner = await getOwner(id);
+        const owner = await getOwner(id, true, true);
         setUserFromDB(owner)
         return owner;
       } catch (err) {

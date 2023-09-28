@@ -11,6 +11,8 @@ const NavigationBar = ({isLoggedIn = false}) => {
 
             <ul className="flex text-black justify-evenly items-center h-full">
                 <li><Link to={'/'}>Home</Link></li>
+                <li><Link to={'/owners'}>Find an Owner</Link></li>
+                { isLoggedIn && <li><Link to={'/profile'}>Profile</Link></li> }
                 <li><Link to={'/about'}>About</Link></li>
                 { !isLoggedIn ? <li><Link to={'/login'}>Login</Link></li> :  <li><Link to={'/logout'}>Logout</Link></li>}
             </ul>

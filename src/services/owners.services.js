@@ -4,9 +4,17 @@ const getToken = () => {
     return localStorage.getItem("userToken");
 }
 
-export const getOwner = (id, withPets = false) => {
+export const getOwner = (id, withPets = false, withGroups = false) => {
     const authToken = getToken();
-    const URLReq = withPets ? `/owners/${id}?with_pets=true` : `/owners/${id}`;
+    const URLReq = new URL("/owners/" + id, axiosInstance.defaults.baseURL);
+
+    if(withPets) {
+        URLReq.searchParams.append("with_pets", "true");
+    }
+    if(withGroups) {
+        URLReq.searchParams.append("with_groups", "true");
+    }
+
 
     return axiosInstance.get(URLReq, { headers: { Authorization: `Bearer ${authToken}` } })
         .then(response => response.data)

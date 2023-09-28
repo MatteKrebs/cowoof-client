@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import OwnersPage from './pages/OwnersPage';
 import OwnerPage from './pages/OwnerPage';
 import GroupsPage from './pages/GroupsPage';
-import AddPet from './components/AddPet';
+import EditOrCreatePet from './components/EditOrCreatePet';
 import SignupCombined from './pages/SignupCombined';
 import './App.css';
 import { AuthProvider } from './context/auth.context';
@@ -30,7 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path='/profile' element={<ProfilePage />}/>
-        <Route path="/newpet" element={<AddPet />} />
+        <Route path="/pet/:id?" element={<EditOrCreatePet />} />
         <Route path='/owners' element={<OwnersPage />} />
         <Route path='/owner/:id' element={<OwnerPage />} />
         <Route path='/groups' element={<GroupsPage />} />
