@@ -1,8 +1,4 @@
-import { axiosInstance } from "../utilities/api";
-
-const getToken = () => {
-    return localStorage.getItem("userToken");
-}
+import { axiosInstance, getToken } from "../utilities/api";
 
 export const deletePet = (id) => {
     const authToken = getToken();

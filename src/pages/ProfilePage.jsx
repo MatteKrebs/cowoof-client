@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   const { user } = useAuth();
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
   const [userFromDB, setUserFromDB] = useState(null);
 
   useEffect(() => {

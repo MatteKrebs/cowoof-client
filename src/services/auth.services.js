@@ -1,8 +1,4 @@
-import { axiosInstance } from "../utilities/api";
-
-const getToken = () => {
-  return localStorage.getItem("userToken");
-}
+import { axiosInstance, getToken } from "../utilities/api";
 
 const signUp = ({ userName, userEmail, password, locationCountry, locationCity, locationPostalCode, availabilityNeeded, availabilityToHelp }) => {
   return axiosInstance.post("/auth/signup", {

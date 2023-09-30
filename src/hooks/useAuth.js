@@ -24,7 +24,7 @@ export const useAuth = () => {
 
     const login = (authToken, userId, userEmail, userName) => {
         setItem("user", JSON.stringify({ _id: userId, userEmail, userName }));
-        setItem("userToken", JSON.stringify(authToken));
+        setItem("userToken", authToken);
         setUserState({ _id: userId, userEmail, userName });
         setIsLoggedIn(true);
     };
