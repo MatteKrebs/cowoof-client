@@ -63,7 +63,7 @@ function EditOrCreatePet() {
     try {
       const response = await editPet(petId, updatedPet);
       console.log("Pet updated successfully:", response.data);
-      navigate('/profile')
+      navigate('/profile');
     } catch (error) {
       console.error("Error updating pet:", error);
     }
